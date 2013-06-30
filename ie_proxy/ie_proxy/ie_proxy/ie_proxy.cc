@@ -14,16 +14,16 @@ namespace net
 		std::wstring strRet;
 		WINHTTP_AUTOPROXY_OPTIONS autoProxyOptions = {0};
 		WINHTTP_CURRENT_USER_IE_PROXY_CONFIG ieProxyConfig = {0};
-		BOOL bAutoDelete = FALSE; //“自动检测设置”，但有时候即便选择上也会返回0，所以需要根据url判断
+		BOOL bAutoDetect = FALSE; //“自动检测设置”，但有时候即便选择上也会返回0，所以需要根据url判断
 		if(::WinHttpGetIEProxyConfigForCurrentUser(&ieProxyConfig))
 		{
 			if(ieProxyConfig.fAutoDetect)
 			{
-				bAutoDelete = TRUE;
+				bAutoDetect = TRUE;
 			}
 			if( ieProxyConfig.lpszAutoConfigUrl != NULL )
 			{
-				bAutoDelete = TRUE;
+				bAutoDetect = TRUE;
 				autoProxyOptions.lpszAutoConfigUrl = ieProxyConfig.lpszAutoConfigUrl;
 			}
 		}
@@ -33,7 +33,7 @@ namespace net
 			return strRet;
 		}
 
-		if(bAutoDelete)
+		if(bAutoDetect)
 		{
 			if (autoProxyOptions.lpszAutoConfigUrl != NULL)
 			{ 
@@ -50,7 +50,7 @@ namespace net
 			if (hSession != NULL)
 			{
 				WINHTTP_PROXY_INFO autoProxyInfo = {0};
-				bAutoDelete = ::WinHttpGetProxyForUrl(hSession, strHostName.c_str(), &autoProxyOptions, &autoProxyInfo);
+				bAutoDetect = ::WinHttpGetProxyForUrl(hSession, strHostName.c_str(), &autoProxyOptions, &autoProxyInfo);
 				if (hSession!= NULL) 
 				{
 					::WinHttpCloseHandle(hSession);
