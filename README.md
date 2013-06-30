@@ -1,5 +1,5 @@
 some knowledge about windows network program.  
-一些windows net编程的知识  
+一些windows网络编程的知识  
 
 - [IE代理](./ie_proxy)
 
