@@ -20,6 +20,7 @@ int main()
 	::WinHttpCrackUrl(strUrl.c_str(), (DWORD)strUrl.length(), 0, &url_component);
 	std::wstring strHostName = std::wstring(url_component.lpszHostName, url_component.dwHostNameLength);
 	//strHostName = L"127.0.0.1";
+	strHostName = L"localhost";
 	std::wstring strProxy = proxyConfig.GetIEProxy(strHostName.c_str(), proxyType);
 	std::wcout << strProxy << std::endl;
 	system("pause");

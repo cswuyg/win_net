@@ -122,7 +122,7 @@ namespace net
 
 			if (strPrePart == L"<local>")
 			{
-				if (strHostName.find(L"localhost") != std::wstring::npos)
+				if (strHostName.find(L".") == std::wstring::npos)
 				{
 					bRet = FALSE;
 					break;
