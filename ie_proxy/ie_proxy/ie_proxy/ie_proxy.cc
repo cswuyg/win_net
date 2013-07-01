@@ -57,7 +57,7 @@ namespace net
 				}
 				if(autoProxyInfo.lpszProxy)
 				{
-					if (autoProxyInfo.lpszProxyBypass == NULL || CheckPassBy(strHostName, autoProxyInfo.lpszProxyBypass))
+					if (autoProxyInfo.lpszProxyBypass == NULL || CheckByPass(strHostName, autoProxyInfo.lpszProxyBypass))
 					{
 						std::wstring strProxyAddr = autoProxyInfo.lpszProxy;
 						strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
@@ -77,7 +77,7 @@ namespace net
 		{
 			if(ieProxyConfig.lpszProxy != NULL)
 			{
-				if(ieProxyConfig.lpszProxyBypass == NULL || CheckPassBy(strHostName, ieProxyConfig.lpszProxyBypass))
+				if(ieProxyConfig.lpszProxyBypass == NULL || CheckByPass(strHostName, ieProxyConfig.lpszProxyBypass))
 				{
 					std::wstring strProxyAddr = ieProxyConfig.lpszProxy;
 					strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
@@ -101,7 +101,7 @@ namespace net
 		return strRet_cswuyg;
 	}
 
-	BOOL CIEProxy::CheckPassBy( const std::wstring& strHostName, const std::wstring& strPassBy )
+	BOOL CIEProxy::CheckByPass( const std::wstring& strHostName, const std::wstring& strPassBy )
 	{
 		BOOL bRet = TRUE;
 		std::wstring strPassTemp = strPassBy;

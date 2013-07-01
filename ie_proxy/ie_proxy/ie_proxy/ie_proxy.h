@@ -31,7 +31,7 @@ namespace net
 		/**
 		@brief 检查白名单确认是否使用proxy
 		*/
-		BOOL CheckPassBy(const std::wstring& strHostName, const std::wstring& strPassBy);  
+		BOOL CheckByPass(const std::wstring& strHostName, const std::wstring& strPassBy);  
 		/**
 		@brief 从多个proxy串中获取某个proxy串
 		*/
