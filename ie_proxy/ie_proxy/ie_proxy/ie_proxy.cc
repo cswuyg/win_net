@@ -11,7 +11,7 @@ namespace net
 
 	std::wstring CIEProxy::GetIEProxy( const std::wstring& strHostName, const E_proxy_type& eProxyType )
 	{
-		std::wstring strRet;
+		std::wstring strRet_cswuyg;
 		WINHTTP_AUTOPROXY_OPTIONS autoProxyOptions = {0};
 		WINHTTP_CURRENT_USER_IE_PROXY_CONFIG ieProxyConfig = {0};
 		BOOL bAutoDetect = FALSE; //“自动检测设置”，但有时候即便选择上也会返回0，所以需要根据url判断
@@ -30,7 +30,7 @@ namespace net
 		else
 		{
 			// error
-			return strRet;
+			return strRet_cswuyg;
 		}
 
 		if(bAutoDetect)
@@ -60,15 +60,15 @@ namespace net
 					if (autoProxyInfo.lpszProxyBypass == NULL || CheckPassBy(strHostName, autoProxyInfo.lpszProxyBypass))
 					{
 						std::wstring strProxyAddr = autoProxyInfo.lpszProxy;
-						strRet = GetProxyFromString(eProxyType, strProxyAddr);
+						strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
 					}
 					if(autoProxyInfo.lpszProxy != NULL)
 					{
-						GlobalFree(autoProxyInfo.lpszProxy);
+						::GlobalFree(autoProxyInfo.lpszProxy);
 					}
 					if(autoProxyInfo.lpszProxyBypass !=NULL) 
 					{
-						GlobalFree(autoProxyInfo.lpszProxyBypass); 
+						::GlobalFree(autoProxyInfo.lpszProxyBypass); 
 					}
 				}
 			}
@@ -80,7 +80,7 @@ namespace net
 				if(ieProxyConfig.lpszProxyBypass == NULL || CheckPassBy(strHostName, ieProxyConfig.lpszProxyBypass))
 				{
 					std::wstring strProxyAddr = ieProxyConfig.lpszProxy;
-					strRet = GetProxyFromString(eProxyType, strProxyAddr);
+					strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
 				}
 			}
 		}
@@ -98,24 +98,46 @@ namespace net
 			::GlobalFree(ieProxyConfig.lpszProxyBypass);
 		}
 
-		return strRet;
+		return strRet_cswuyg;
 	}
 
 	BOOL CIEProxy::CheckPassBy( const std::wstring& strHostName, const std::wstring& strPassBy )
 	{
 		BOOL bRet = TRUE;
 		std::wstring strPassTemp = strPassBy;
-		size_t pos = strPassTemp.find(L";");
-		while (pos != std::wstring::npos)
+		while (!strPassTemp.empty())
 		{
-			std::wstring strPrePart = strPassTemp.substr(0, pos);
-			if (strHostName.find(strPrePart) != std::wstring::npos)
+			std::wstring strPrePart = strPassTemp;
+			size_t pos = strPassTemp.find(L";");
+			if (pos != std::wstring::npos)
+			{
+				strPrePart = strPassTemp.substr(0, pos);
+				strPassTemp = strPassTemp.substr(pos+1);
+			}
+			else
+			{
+				strPrePart = strPassTemp;
+				strPassTemp = L"";
+			}
+
+			if (strPrePart == L"<local>")
+			{
+				if (strHostName.find(L"localhost") != std::wstring::npos)
+				{
+					bRet = FALSE;
+					break;
+				}
+				else if (strHostName.find(L"127.0.0.1") != std::wstring::npos)
+				{
+					bRet = FALSE;
+					break;
+				}
+			}
+			else if (strHostName.find(strPrePart) != std::wstring::npos)
 			{
 				bRet = FALSE;
 				break;
 			}
-			strPassTemp = strPassTemp.substr(pos+1);
-			pos = strPassTemp.find(L";");
 		}
 
 		return bRet;
