@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "curl_post_test", "curl_post_test\curl_post_test.vcproj", "{F7C9BC22-8746-4A9A-BB77-AAC3FD08BAAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420} = {F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcurl", "libcurl\libcurl.vcproj", "{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7C9BC22-8746-4A9A-BB77-AAC3FD08BAAF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7C9BC22-8746-4A9A-BB77-AAC3FD08BAAF}.Debug|Win32.Build.0 = Debug|Win32
+		{F7C9BC22-8746-4A9A-BB77-AAC3FD08BAAF}.Release|Win32.ActiveCfg = Release|Win32
+		{F7C9BC22-8746-4A9A-BB77-AAC3FD08BAAF}.Release|Win32.Build.0 = Release|Win32
+		{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}.Debug|Win32.Build.0 = Debug|Win32
+		{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}.Release|Win32.ActiveCfg = Release|Win32
+		{F9A9D109-FAA9-4052-97A5-F2FDDA3B9420}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
