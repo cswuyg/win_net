@@ -4,7 +4,7 @@ some knowledge about windows network program.
 - [IE代理](./ie_proxy)
 - [WinHTTP和libcurl实现的HTTP POST文件](./http_post)
 - [tshark命令行工具抓包测试](./test_tshark)
-
+- [url\path字符编码（url\path char encode）](./char_encode)
 
 
 
