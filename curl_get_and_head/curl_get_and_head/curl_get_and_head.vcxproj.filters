@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="get_head_only">
+      <UniqueIdentifier>{b52331cb-6c48-4edc-8bef-1edc925ca4dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pure_header">
+      <UniqueIdentifier>{e6e4846f-8a0a-4456-b8fc-0b3161bc9804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="simple_get_buffer">
+      <UniqueIdentifier>{e90f0fbe-26c3-4aa9-80e9-a2f172bd2a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="simple_get_file">
+      <UniqueIdentifier>{f3abde3e-bbaa-4d07-9a99-374d4cb0eb22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="get_head_only\curl_get_head_only.cc">
+      <Filter>get_head_only</Filter>
+    </ClCompile>
+    <ClCompile Include="pure_header\curl_pure_header.cc">
+      <Filter>pure_header</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_get_buffer\curl_simple_get_buffer.cc">
+      <Filter>simple_get_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="curl_get.cc" />
+    <ClCompile Include="simple_get_file\curl_simple_get_file.cc">
+      <Filter>simple_get_file</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="get_head_only\curl_get_head_only.h">
+      <Filter>get_head_only</Filter>
+    </ClInclude>
+    <ClInclude Include="pure_header\curl_pure_header.h">
+      <Filter>pure_header</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_get_buffer\curl_simple_get_buffer.h">
+      <Filter>simple_get_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_get_file\curl_simple_get_file.h">
+      <Filter>simple_get_file</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
