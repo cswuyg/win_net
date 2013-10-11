@@ -17,7 +17,7 @@ std::string decodeHex(const std::string& strHex)
 	std::string strRet(nLen, 0);
 	for (int i = 0; i != nLen; ++i)
 	{
-		strRet[i] = ((strHex[2*i]>'a') ? (strHex[2*i]-'a'+10) : (strHex[2*i]-'0')) * 16;
+		strRet[i] = ((strHex[2*i]>='a') ? (strHex[2*i]-'a'+10) : (strHex[2*i]-'0')) * 16;
 		strRet[i] += (strHex[2*i+1]>='a') ? (strHex[2*i+1]-'a'+10) : (strHex[2*i+1]-'0');
 	}
 	return strRet;

@@ -73,7 +73,8 @@ namespace net
 				}
 			}
 		}
-		else
+		//when strRet is empty, even though the user has set proxy auto-config, we need to check the manual setting. 
+		if (strRet.empty())
 		{
 			if(ieProxyConfig.lpszProxy != NULL)
 			{
