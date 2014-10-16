@@ -9,7 +9,7 @@ cswuyg@gmail.com
 namespace net
 {
 
-	std::wstring CIEProxy::GetIEProxy( const std::wstring& strHostName, const E_proxy_type& eProxyType )
+	std::wstring CIEProxy::GetIEProxy( const std::wstring& strURL, const E_proxy_type& eProxyType )
 	{
 		std::wstring strRet_cswuyg;
 		WINHTTP_AUTOPROXY_OPTIONS autoProxyOptions = {0};
@@ -50,14 +50,14 @@ namespace net
 			if (hSession != NULL)
 			{
 				WINHTTP_PROXY_INFO autoProxyInfo = {0};
-				bAutoDetect = ::WinHttpGetProxyForUrl(hSession, strHostName.c_str(), &autoProxyOptions, &autoProxyInfo);
+				bAutoDetect = ::WinHttpGetProxyForUrl(hSession, strURL.c_str(), &autoProxyOptions, &autoProxyInfo);
 				if (hSession!= NULL) 
 				{
 					::WinHttpCloseHandle(hSession);
 				}
 				if(autoProxyInfo.lpszProxy)
 				{
-					if (autoProxyInfo.lpszProxyBypass == NULL || CheckByPass(strHostName, autoProxyInfo.lpszProxyBypass))
+					if (autoProxyInfo.lpszProxyBypass == NULL || CheckByPass(strURL, autoProxyInfo.lpszProxyBypass))
 					{
 						std::wstring strProxyAddr = autoProxyInfo.lpszProxy;
 						strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
@@ -74,11 +74,11 @@ namespace net
 			}
 		}
 		//when strRet is empty, even though the user has set proxy auto-config, we need to check the manual setting. 
-		if (strRet.empty())
+		if (strRet_cswuyg.empty())
 		{
 			if(ieProxyConfig.lpszProxy != NULL)
 			{
-				if(ieProxyConfig.lpszProxyBypass == NULL || CheckByPass(strHostName, ieProxyConfig.lpszProxyBypass))
+				if(ieProxyConfig.lpszProxyBypass == NULL || CheckByPass(strURL, ieProxyConfig.lpszProxyBypass))
 				{
 					std::wstring strProxyAddr = ieProxyConfig.lpszProxy;
 					strRet_cswuyg = GetProxyFromString(eProxyType, strProxyAddr);
@@ -102,7 +102,7 @@ namespace net
 		return strRet_cswuyg;
 	}
 
-	BOOL CIEProxy::CheckByPass( const std::wstring& strHostName, const std::wstring& strPassBy )
+	BOOL CIEProxy::CheckByPass( const std::wstring& strURL, const std::wstring& strPassBy )
 	{
 		BOOL bRet = TRUE;
 		std::wstring strPassTemp = strPassBy;
@@ -123,18 +123,18 @@ namespace net
 
 			if (strPrePart == L"<local>")
 			{
-				if (strHostName.find(L".") == std::wstring::npos)
+				if (strURL.find(L".") == std::wstring::npos)
 				{
 					bRet = FALSE;
 					break;
 				}
-				else if (strHostName.find(L"127.0.0.1") != std::wstring::npos)
+				else if (strURL.find(L"127.0.0.1") != std::wstring::npos)
 				{
 					bRet = FALSE;
 					break;
 				}
 			}
-			else if (strHostName.find(strPrePart) != std::wstring::npos)
+			else if (strURL.find(strPrePart) != std::wstring::npos)
 			{
 				bRet = FALSE;
 				break;
